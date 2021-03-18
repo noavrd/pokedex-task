@@ -1,6 +1,5 @@
 const { Router } = require("express");
 const { default: axios } = require("axios");
-const POKEAPI_BASE_URL = "https://pokeapi.co/api/v2";
 
 const type = Router();
 
@@ -11,18 +10,28 @@ type.get("/", (req, res) => {
 type.get("/:name", (req, res) => {
   const name = req.params.name;
   try {
-    const data = axios.get(`${POKEAPI_BASE_URL}/type/${name}`);
-    if (data.staus === 404) {
-      return res.status(404).send("Type not found");
-    }
-    res.send(data);
+    axios
+      .get(`https://pokeapi.co/api/v2/type/${name}`)
+      .then(response => {
+        const pokemoneTypes = [];
+        response.data.pokemon.filter(obj =>
+          pokemoneTypes.push({
+            name: obj.pokemon.name,
+            url: obj.pokemon.url,
+          })
+        );
+        res.json({
+          name: name,
+          id: response.data.id,
+          pokemons: pokemoneTypes,
+        });
+      })
+      .catch(() => {
+        res.status(404).send("Type not found");
+      });
   } catch (e) {
-    res.json({ message: e });
+    res.statue(500).send(e);
   }
-  axios
-    .get(POKEAPI_BASE_URL)
-    .then()
-    .catch(error => {});
 });
 
 module.exports = type;
