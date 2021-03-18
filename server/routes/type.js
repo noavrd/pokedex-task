@@ -12,16 +12,18 @@ type.get("/:name", (req, res) => {
     axios
       .get(`https://pokeapi.co/api/v2/type/${name}`)
       .then(response => {
-        const pokemoneTypes = response.data.pokemon.map(
-          obj => `name" = ${obj.pokemon.name} "url" = ${obj.pokemon.url}}`
-        );
-
-        res.send(pokemoneTypes);
-        // res.json({
-        //   name: name,
-        //   id: response.data.id,
-        //   pokemons: pokemoneTypes,
-        // });
+        // const pokemoneTypes = response.data.pokemon.map(
+        //   obj => `name" = ${obj.pokemon.name} "url" = ${obj.pokemon.url}}`
+        // );
+        const pokemoneTypes = [];
+        response.data.pokemon.forEach(obj => {
+          pokemoneTypes.push({ name: obj.pokemon.name, url: obj.pokemon.url });
+        });
+        res.json({
+          name: name,
+          id: response.data.id,
+          pokemons: pokemoneTypes,
+        });
       })
       .catch(() => {
         res.status(404).send("Type not found");
