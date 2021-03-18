@@ -2,6 +2,9 @@ const { Router, response } = require("express");
 const { default: axios } = require("axios");
 
 const pokemon = Router();
+pokemon.get("/", (req, res) => {
+  res.send("pokemon route");
+});
 
 pokemon.get("/:name", (req, res) => {
   const pokemonName = req.params.name;

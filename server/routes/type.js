@@ -12,9 +12,6 @@ type.get("/:name", (req, res) => {
     axios
       .get(`https://pokeapi.co/api/v2/type/${name}`)
       .then(response => {
-        // const pokemoneTypes = response.data.pokemon.map(
-        //   obj => `name" = ${obj.pokemon.name} "url" = ${obj.pokemon.url}}`
-        // );
         const pokemoneTypes = [];
         response.data.pokemon.forEach(obj => {
           pokemoneTypes.push({ name: obj.pokemon.name, url: obj.pokemon.url });
