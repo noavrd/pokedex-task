@@ -16,7 +16,6 @@ pokemon.get("/:name", (req, res) => {
         response.data.types.some((obj) => {
           typesOfPockemon.push(obj.type.name);
         });
-        console.log(response);
         const pokemoneObj = {
           name: response.data.name,
           height: response.data.height,

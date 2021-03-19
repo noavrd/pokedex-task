@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Details from "./Details.js";
 import Types from "./Types.js";
+import Collection from "./Collection";
 import axios from "axios";
 const BASE_URL = "http://localhost:3001/api";
 
@@ -9,18 +10,23 @@ function Main(props) {
   const [pokemonDetails, setPokemonDetails] = useState([]);
   const [pokemonFromClick, setPokemonFromClick] = useState("");
   const [typeListValue, setTypeListValue] = useState([]);
+  const [collection, setCollection] = useState([]);
+  const [addOrRemove, setAddOrRemove] = useState({
+    mode: "",
+    pokemon: {},
+  });
   const [typesHidden, setTypesHidden] = useState("hidden");
-  const catchOrRealseButton = useRef("hidden");
 
+  const [catchOrRemove, setCatchOrRemove] = useState("Catch");
   const whoToUpdate = useRef("");
   const ifDefined = useRef(false);
-  console.log("ITS ME", ifDefined.current);
 
   function clickHandler(e) {
     console.log("THE CLICK HANDLER", e.target.className);
     if (e.target.className === "searchPokemon") {
       whoToUpdate.current = "searchPokemon";
       setPokemonFromClick(inputValue);
+      setAddOrRemove({ mode: "", pokemon: {} });
     }
     if (e.target.className === "pokemonType") {
       whoToUpdate.current = "pokemonType";
@@ -32,25 +38,34 @@ function Main(props) {
       whoToUpdate.current = "searchPokemon";
       setPokemonFromClick(e.target.innerText);
     }
+    if (e.target.className === "catchOrRealseButton") {
+      console.log("catch clicked!");
+      if (e.target.innerText === "Catch") {
+        e.target.innerText = "Release";
+        setAddOrRemove({ mode: "Release", pokemon: pokemonDetails });
+      } else {
+        e.target.innerText = "Catch";
+        setAddOrRemove({ mode: "Catch", pokemon: pokemonDetails });
+      }
+      // setPokemonFromClick(e.target.innerText);
+    }
   }
 
   useEffect(() => {
-    console.log("RANDERRRRRRRRRRRRRRRR");
+    console.log("MAIN RANDERRRRRRRRRRRRRRRR");
+    console.log("MA NISHMA PO", addOrRemove);
     if (whoToUpdate.current === "searchPokemon") {
       axios
         .get(`${BASE_URL}/pokemon/${pokemonFromClick}`)
         .then((response) => {
-          console.log(`${BASE_URL}/pokemon/${pokemonFromClick}`);
           ifDefined.current = true;
           setPokemonDetails(response.data);
-          console.log(pokemonDetails);
         })
         .catch((err) => {
           console.log(err);
         });
     }
     if (whoToUpdate.current === "pokemonType") {
-      console.log("PASS TYPE");
       axios
         .get(`${BASE_URL}/type/${pokemonFromClick}`)
         .then((response) => {
@@ -62,6 +77,9 @@ function Main(props) {
           console.log(err);
         });
     }
+    axios.get(`${BASE_URL}/collection`).then((respone) => {
+      console.log("COLECTION GET", respone);
+    });
   }, [pokemonFromClick]);
 
   return (
@@ -71,12 +89,12 @@ function Main(props) {
         onChange={(e) => setInputValue(e.target.value)}
       ></input>
       <button type="button" className="searchPokemon" onClick={clickHandler}>
-        Submit
+        Search
       </button>
       <Details
-        catchOrRealseButton={catchOrRealseButton.current}
         pokemon={pokemonDetails}
         ifDefined={ifDefined.current}
+        catchOrRemove={catchOrRemove}
         clickHandler={clickHandler}
       />
       <Types
@@ -85,6 +103,7 @@ function Main(props) {
         ifDefined={ifDefined.current}
         clickHandler={clickHandler}
       />
+      <Collection addOrRemove={addOrRemove} />
     </div>
   );
 }
