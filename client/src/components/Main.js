@@ -9,6 +9,7 @@ function Main(props) {
   const [pokemonDetails, setPokemonDetails] = useState([]);
   const [pokemonFromClick, setPokemonFromClick] = useState("");
   const [typeListValue, setTypeListValue] = useState([]);
+  const [typesHidden, setTypesHidden] = useState("hidden");
   const catchOrRealseButton = useRef("hidden");
 
   const whoToUpdate = useRef("");
@@ -20,10 +21,16 @@ function Main(props) {
     if (e.target.className === "searchPokemon") {
       whoToUpdate.current = "searchPokemon";
       setPokemonFromClick(inputValue);
-      console.log(ifDefined.current);
     }
     if (e.target.className === "pokemonType") {
-      whoToUpdate.current = "searchType";
+      whoToUpdate.current = "pokemonType";
+      setPokemonFromClick(
+        e.target.innerText.slice(1, e.target.innerText.length)
+      );
+    }
+    if (e.target.className === "typeList") {
+      whoToUpdate.current = "searchPokemon";
+      setPokemonFromClick(e.target.innerText);
     }
   }
 
@@ -42,11 +49,14 @@ function Main(props) {
           console.log(err);
         });
     }
-    if (whoToUpdate.current === "searchType") {
+    if (whoToUpdate.current === "pokemonType") {
+      console.log("PASS TYPE");
       axios
-        .get(`${BASE_URL}/type/${inputValue}`)
+        .get(`${BASE_URL}/type/${pokemonFromClick}`)
         .then((response) => {
-          setTypeListValue(response.data);
+          let tempArr = [...response.data.pokemons];
+          let namesOfTempArr = [];
+          setTypeListValue(tempArr);
         })
         .catch((err) => {
           console.log(err);
@@ -70,6 +80,7 @@ function Main(props) {
         clickHandler={clickHandler}
       />
       <Types
+        visibility={typesHidden}
         typeListValue={typeListValue}
         ifDefined={ifDefined.current}
         clickHandler={clickHandler}

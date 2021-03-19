@@ -1,10 +1,35 @@
-import React, { useEffect } from "react";
 import Type from "./Type.js";
+import React, { useState, useEffect, useRef } from "react";
+import axios from "axios";
+const BASE_URL = "http://localhost:3001/api";
 
 function Details(props) {
-  useEffect(() => {
-    console.log("RANDERED");
-  }, []);
+  // const [typeClicked, setTypeClick] = useEffect(false);
+  // const clickedValue = useRef("");
+
+  // function clickHandler(e) {
+  //   if ((e.target.className = "pokemonType")) {
+  //     setTypeClick(true);
+  //     clickedValue.current = e.target.innerText;
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   if (typeClicked) {
+  //     console.log("TYPES FETCH");
+  //     axios
+  //       .get(`${BASE_URL}/type/${clickedValue.current}`)
+  //       .then((response) => {
+  //         console.log("FETCH", response);
+  //         setTypeListValue(response.data);
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   }
+  //   console.log("TYPES RENDER");
+  // });
+
   return (
     <div className="details-div">
       <ul>
@@ -15,11 +40,7 @@ function Details(props) {
           Types:
           {props.pokemon.type
             ? props.pokemon.type.map((type, i) => (
-                <Type
-                  pokemonType={type}
-                  key={i}
-                  clickHandler={props.clickHandler}
-                />
+                <Type pokemonType={type} key={i} clickHandler={props.clickHandler} />
               ))
             : ""}
         </li>
