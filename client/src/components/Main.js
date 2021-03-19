@@ -25,26 +25,26 @@ function Main(props) {
   function clickHandler(e) {
     console.log("THE CLICK HANDLER", e.target.className);
     if (e.target.className === "searchPokemon") {
-      let ifExist = false;
-      axios.get(`${BASE_URL}/collection`).then((response) => {
-        let tempArr = [...response.data];
-        tempArr.forEach((pokemon) => {
-          console.log("POKEMON COLLECTION NAME", pokemon.name);
-          console.log("inputValue", inputValue);
-          if (pokemon.name === inputValue) {
-            ifExist = true;
-            console.log("IFEXIST", ifExist);
-          }
-        });
-      });
-      if (ifExist) {
+      // let ifExist = false;
+      // axios.get(`${BASE_URL}/collection`).then((response) => {
+      //   let tempArr = [...response.data];
+      //   tempArr.forEach((pokemon) => {
+      //     console.log("POKEMON COLLECTION NAME", pokemon.name);
+      //     console.log("inputValue", inputValue);
+      //     if (pokemon.name === inputValue) {
+      //       ifExist = true;
+      //       console.log("IFEXIST", ifExist);
+      //     }
+      //   });
+      // });
+      if (catchOrRelease === "Catch") {
         setCatchOrRealease("Release");
         setAddOrRemove({ mode: "Catch", pokemon: pokemonDetails });
       } else {
         setCatchOrRealease("Catch");
         setAddOrRemove({ mode: "Release", pokemon: pokemonDetails });
       }
-      console.log("IFEXIST", ifExist);
+      console.log("catchOrRelease", catchOrRelease);
       whoToUpdate.current = "searchPokemon";
       setPokemonFromClick(inputValue);
     }
@@ -58,6 +58,7 @@ function Main(props) {
 
     if (e.target.className === "typeList") {
       whoToUpdate.current = "searchPokemon";
+      setInputValue(e.target.innerText);
       setPokemonFromClick(e.target.innerText);
     }
 
@@ -76,7 +77,6 @@ function Main(props) {
 
   useEffect(() => {
     console.log("MAIN RANDERRRRRRRRRRRRRRRR");
-    console.log("MA NISHMA PO", addOrRemove);
     if (whoToUpdate.current === "searchPokemon") {
       axios
         .get(`${BASE_URL}/pokemon/${pokemonFromClick}`)
@@ -100,6 +100,20 @@ function Main(props) {
           console.log(err);
         });
     }
+    axios.get(`${BASE_URL}/collection`).then((response) => {
+      let bool = false;
+      let tempArr = [...response.data];
+      tempArr.forEach((pokemon) => {
+        if (pokemon.name === inputValue) {
+          bool = true;
+        }
+      });
+      if (bool) {
+        setCatchOrRealease("Release");
+      } else {
+        setCatchOrRealease("Catch");
+      }
+    });
   }, [pokemonFromClick]);
 
   return (
