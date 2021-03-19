@@ -1,0 +1,22 @@
+{
+  "name": "pokedex-app",
+  "version": "1.0.0",
+  "description": "<h1>Pokedex Task <img src=\"https://veekun.com/dex/media/pokemon/global-link/7.png\" height=\"50px\"/></h1>",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shirameirovitz/pokedex-task.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shirameirovitz/pokedex-task/issues"
+  },
+  "homepage": "https://github.com/shirameirovitz/pokedex-task#readme",
+  "dependencies": {
+    "axios": "^0.21.1"
+  }
+}
