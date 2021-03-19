@@ -27,3 +27,26 @@ header {
 .pokemonCard-content {
   padding: 20px 100px;
 }
+input {
+  border-radius: 6px;
+  margin-left: 40vw;
+  font-size: 20px;
+  margin-top: 5vh;
+}
+button {
+  font-size: 18px;
+  margin-left: 1vw;
+  color: rgb(68, 68, 223);
+  background-color: rgb(241, 227, 96);
+  border-radius: 6px;
+}
+
+/* margin: 0;
+line-height: 18px;
+height: 18px;
+padding: 10px;
+border: rgb(44, 41, 41);
+background: white;
+
+font-family: Lato, sans-serif;
+color: rgb(12, 9, 9); */
