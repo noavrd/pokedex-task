@@ -13,28 +13,37 @@ function Details(props) {
         <li className="weight">Weight:{props.pokemon.weight}</li>
         <li className="types">
           Types:
-          {console.log(props)}
           {props.pokemon.type
             ? props.pokemon.type.map((type, i) => (
-                <Type pokemonType={type} key={i} />
+                <Type
+                  pokemonType={type}
+                  key={i}
+                  clickHandler={props.clickHandler}
+                />
               ))
             : ""}
         </li>
       </ul>
+
       {props.ifDefined ? (
         <img
           className="details-img"
-          src={props.pokemon.url ? props.pokemon.url.front : ""}
+          src={props.pokemon.url ? props.pokemon.url.front : undefined}
+          onMouseOver={(e) =>
+            (e.currentTarget.src = props.pokemon.url
+              ? props.pokemon.url.back
+              : undefined)
+          }
+          onMouseOut={(e) =>
+            (e.currentTarget.src = props.pokemon.url
+              ? props.pokemon.url.front
+              : undefined)
+          }
           alt="pokemon"
         ></img>
       ) : (
         <></>
       )}
-      {/* <img
-        className="details-img"
-        src={props.pokemon.url ? props.pokemon.url.front : ""}
-        alt="pokemon"
-      ></img> */}
       <button className={props.catchOrRealseButton}>Catch</button>
     </div>
   );

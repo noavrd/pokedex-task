@@ -5,7 +5,12 @@ function Types(props) {
     return (
       <div>
         <ul className="typesList">Types</ul>
-        <li></li>
+        {console.log("TYPES PROPS", props)}
+        {props.typeListValue ? (
+          props.typeListValue.map((type) => <li onClick={props.clickHandler}>{type}</li>)
+        ) : (
+          <></>
+        )}
       </div>
     );
   } else {

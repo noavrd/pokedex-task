@@ -8,7 +8,7 @@ function Main(props) {
   const [inputValue, setInputValue] = useState("");
   const [pokemonDetails, setPokemonDetails] = useState([]);
   const [pokemonFromClick, setPokemonFromClick] = useState("");
-  const [typeListValue, setTypeListValue] = useState("hidden");
+  const [typeListValue, setTypeListValue] = useState([]);
   const catchOrRealseButton = useRef("hidden");
 
   const whoToUpdate = useRef("");
@@ -16,10 +16,15 @@ function Main(props) {
   console.log("ITS ME", ifDefined.current);
 
   function clickHandler(e) {
-    if (e.target.className === "searchPokemon")
+    console.log("THE CLICK HANDLER", e.target.className);
+    if (e.target.className === "searchPokemon") {
       whoToUpdate.current = "searchPokemon";
-    setPokemonFromClick(inputValue);
-    console.log(ifDefined.current);
+      setPokemonFromClick(inputValue);
+      console.log(ifDefined.current);
+    }
+    if (e.target.className === "pokemonType") {
+      whoToUpdate.current = "searchType";
+    }
   }
 
   useEffect(() => {
@@ -37,11 +42,11 @@ function Main(props) {
           console.log(err);
         });
     }
-    if (whoToUpdate.current === "pokemonType") {
+    if (whoToUpdate.current === "searchType") {
       axios
         .get(`${BASE_URL}/type/${inputValue}`)
         .then((response) => {
-          console.log(response);
+          setTypeListValue(response.data);
         })
         .catch((err) => {
           console.log(err);
@@ -62,10 +67,12 @@ function Main(props) {
         catchOrRealseButton={catchOrRealseButton.current}
         pokemon={pokemonDetails}
         ifDefined={ifDefined.current}
+        clickHandler={clickHandler}
       />
       <Types
-        setPokemonDetails={setPokemonDetails}
+        typeListValue={typeListValue}
         ifDefined={ifDefined.current}
+        clickHandler={clickHandler}
       />
     </div>
   );
