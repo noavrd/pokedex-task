@@ -11,12 +11,14 @@ function Main(props) {
   const [typeListValue, setTypeListValue] = useState("hidden");
   const catchOrRealseButton = useRef("hidden");
 
-  const shouldUpdate = useRef("");
+  const whoToUpdate = useRef("");
+  const ifDefined = useRef(false);
+  console.log("ITS ME", ifDefined.current);
 
   function clickHandler() {
     setPokemonFromClick(inputValue);
-    console.log(inputValue);
-    console.log(pokemonFromClick);
+    ifDefined.current = true;
+    console.log(ifDefined.current);
   }
 
   useEffect(() => {
@@ -32,9 +34,8 @@ function Main(props) {
       .catch((err) => {
         console.log(err);
       });
-    shouldUpdate.current = "";
     // }
-    if (shouldUpdate.current === "pokemonType") {
+    if (whoToUpdate.current === "pokemonType") {
       axios
         .get(`${BASE_URL}/type/${inputValue}`)
         .then((response) => {
@@ -43,7 +44,6 @@ function Main(props) {
         .catch((err) => {
           console.log(err);
         });
-      shouldUpdate.current = "";
     }
   }, [pokemonFromClick]);
 
@@ -59,8 +59,12 @@ function Main(props) {
       <Details
         catchOrRealseButton={catchOrRealseButton.current}
         pokemon={pokemonDetails}
+        ifDefined={ifDefined.current}
       />
-      <Types setPokemonDetails={setPokemonDetails} />
+      <Types
+        setPokemonDetails={setPokemonDetails}
+        ifDefined={ifDefined.current}
+      />
     </div>
   );
 }
