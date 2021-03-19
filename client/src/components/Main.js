@@ -11,6 +11,7 @@ function Main(props) {
   const [pokemonFromClick, setPokemonFromClick] = useState("");
   const [typeListValue, setTypeListValue] = useState([]);
   const [collection, setCollection] = useState([]);
+  const [catchOrRelease, setCatchOrRealease] = useState("catch");
   const [addOrRemove, setAddOrRemove] = useState({
     mode: "",
     pokemon: {},
@@ -24,20 +25,42 @@ function Main(props) {
   function clickHandler(e) {
     console.log("THE CLICK HANDLER", e.target.className);
     if (e.target.className === "searchPokemon") {
+      let ifExist = false;
+      axios.get(`${BASE_URL}/collection`).then((response) => {
+        let tempArr = [...response.data];
+        tempArr.forEach((pokemon) => {
+          console.log("POKEMON COLLECTION NAME", pokemon.name);
+          console.log("inputValue", inputValue);
+          if (pokemon.name === inputValue) {
+            ifExist = true;
+            console.log("IFEXIST", ifExist);
+          }
+        });
+      });
+      if (ifExist) {
+        setCatchOrRealease("Release");
+        setAddOrRemove({ mode: "Catch", pokemon: pokemonDetails });
+      } else {
+        setCatchOrRealease("Catch");
+        setAddOrRemove({ mode: "Release", pokemon: pokemonDetails });
+      }
+      console.log("IFEXIST", ifExist);
       whoToUpdate.current = "searchPokemon";
       setPokemonFromClick(inputValue);
-      setAddOrRemove({ mode: "", pokemon: {} });
     }
+
     if (e.target.className === "pokemonType") {
       whoToUpdate.current = "pokemonType";
       setPokemonFromClick(
         e.target.innerText.slice(1, e.target.innerText.length)
       );
     }
+
     if (e.target.className === "typeList") {
       whoToUpdate.current = "searchPokemon";
       setPokemonFromClick(e.target.innerText);
     }
+
     if (e.target.className === "catchOrRealseButton") {
       console.log("catch clicked!");
       if (e.target.innerText === "Catch") {
@@ -77,9 +100,6 @@ function Main(props) {
           console.log(err);
         });
     }
-    axios.get(`${BASE_URL}/collection`).then((respone) => {
-      console.log("COLECTION GET", respone);
-    });
   }, [pokemonFromClick]);
 
   return (
@@ -91,9 +111,14 @@ function Main(props) {
       <button type="button" className="searchPokemon" onClick={clickHandler}>
         Search
       </button>
+      {console.log(
+        "catchOrReleasecatchOrReleasecatchOrRelease",
+        catchOrRelease
+      )}
       <Details
         pokemon={pokemonDetails}
         ifDefined={ifDefined.current}
+        catchOrRelease={catchOrRelease}
         catchOrRemove={catchOrRemove}
         clickHandler={clickHandler}
       />

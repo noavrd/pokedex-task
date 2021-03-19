@@ -45,7 +45,7 @@ function Details(props) {
       )}
       {props.ifDefined ? (
         <button className="catchOrRealseButton" onClick={props.clickHandler}>
-          {props.catchOrRemove}
+          {props.catchOrRelease}
         </button>
       ) : (
         <></>
