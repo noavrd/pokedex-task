@@ -15,26 +15,28 @@ function Main(props) {
   const ifDefined = useRef(false);
   console.log("ITS ME", ifDefined.current);
 
-  function clickHandler() {
+  function clickHandler(e) {
+    if (e.target.className === "searchPokemon")
+      whoToUpdate.current = "searchPokemon";
     setPokemonFromClick(inputValue);
-    ifDefined.current = true;
     console.log(ifDefined.current);
   }
 
   useEffect(() => {
     console.log("RANDERRRRRRRRRRRRRRRR");
-    // if (shouldUpdate.current === "searchPokemon") {
-    axios
-      .get(`${BASE_URL}/pokemon/${pokemonFromClick}`)
-      .then((response) => {
-        console.log(`${BASE_URL}/pokemon/${pokemonFromClick}`);
-        setPokemonDetails(response.data);
-        console.log(pokemonDetails);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    // }
+    if (whoToUpdate.current === "searchPokemon") {
+      axios
+        .get(`${BASE_URL}/pokemon/${pokemonFromClick}`)
+        .then((response) => {
+          console.log(`${BASE_URL}/pokemon/${pokemonFromClick}`);
+          ifDefined.current = true;
+          setPokemonDetails(response.data);
+          console.log(pokemonDetails);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
     if (whoToUpdate.current === "pokemonType") {
       axios
         .get(`${BASE_URL}/type/${inputValue}`)
