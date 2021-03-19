@@ -11,20 +11,25 @@ pokemon.get("/:name", (req, res) => {
   try {
     axios
       .get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
-      .then(response => {
+      .then((response) => {
         const typesOfPockemon = [];
-        response.data.types.some(obj => {
+        response.data.types.some((obj) => {
           typesOfPockemon.push(obj.type.name);
         });
+        console.log(response);
         const pokemoneObj = {
           name: response.data.name,
           height: response.data.height,
           weight: response.data.weight,
           type: typesOfPockemon,
+          url: {
+            front: response.data.sprites.front_default,
+            back: response.data.sprites.back_default,
+          },
         };
         res.send(pokemoneObj);
       })
-      .catch(e => {
+      .catch((e) => {
         res.status(404).send("No such pokemone");
       });
   } catch (e) {

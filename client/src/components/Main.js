@@ -7,62 +7,53 @@ const BASE_URL = "http://localhost:3001/api";
 function Main(props) {
   const [inputValue, setInputValue] = useState("");
   const [pokemonDetails, setPokemonDetails] = useState([]);
-  const [click, setClick] = useState(false);
+  const [pokemonFromClick, setPokemonFromClick] = useState("");
   const [typeListValue, setTypeListValue] = useState("hidden");
   const catchOrRealseButton = useRef("hidden");
 
   const shouldUpdate = useRef("");
 
-  function clickHandler(e) {
-    console.log(e.target.classList[0]);
-    if (e.target.classList[0] === "searchPokemon") {
-      shouldUpdate.current = "searchPokemon";
-      catchOrRealseButton.current = "unhidden";
-      setTypeListValue("");
-      setClick(true);
-    }
-    if (e.target.classList[0] === "pokemonType") {
-      setTypeListValue(e.target.innerText);
-      shouldUpdate.current = "pokemonType";
-    }
+  function clickHandler() {
+    setPokemonFromClick(inputValue);
+    console.log(inputValue);
+    console.log(pokemonFromClick);
   }
 
   useEffect(() => {
     console.log("RANDERRRRRRRRRRRRRRRR");
     // if (shouldUpdate.current === "searchPokemon") {
     axios
-      .get(`${BASE_URL}/pokemon/${inputValue}`)
-      .then(response => {
-        console.log(`${BASE_URL}/pokemon/${inputValue}`);
-        console.log(response);
+      .get(`${BASE_URL}/pokemon/${pokemonFromClick}`)
+      .then((response) => {
+        console.log(`${BASE_URL}/pokemon/${pokemonFromClick}`);
         setPokemonDetails(response.data);
+        console.log(pokemonDetails);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
     shouldUpdate.current = "";
-    setClick(false);
     // }
     if (shouldUpdate.current === "pokemonType") {
       axios
         .get(`${BASE_URL}/type/${inputValue}`)
-        .then(response => {
+        .then((response) => {
           console.log(response);
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         });
       shouldUpdate.current = "";
     }
-  }, []);
+  }, [pokemonFromClick]);
 
   return (
     <div>
       <input
         value={inputValue}
-        onChange={e => setInputValue(e.target.value)}
+        onChange={(e) => setInputValue(e.target.value)}
       ></input>
-      <button className="searchPokemon" onClick={clickHandler}>
+      <button type="button" className="searchPokemon" onClick={clickHandler}>
         Submit
       </button>
       <Details

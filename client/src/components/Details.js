@@ -1,7 +1,11 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 import Type from "./Type.js";
 
 function Details(props) {
+  useEffect(() => {
+    console.log("RANDERED");
+  }, []);
+
   return (
     <div className="details-div">
       <ul>
@@ -10,13 +14,20 @@ function Details(props) {
         <li className="weight">Weight:{props.pokemon.weight}</li>
         <li className="types">
           Types:
-          {console.log(props.pokemon.types)}
-          {/* {props.pokemon.types.map(obj => (
-            <Type pokemonType={obj} />
-          ))} */}
+          {console.log(props)}
+          {props.pokemon.type
+            ? props.pokemon.type.map((type, i) => (
+                <Type pokemonType={type} key={i} />
+              ))
+            : ""}
         </li>
       </ul>
-      <img className="details-img" src={props.pokemon.url} alt="pokemon"></img>
+      {console.log(props.pokemon.url)}
+      <img
+        className="details-img"
+        src={props.pokemon.url.front}
+        alt="pokemon"
+      ></img>
       <button className={props.catchOrRealseButton}>Catch</button>
     </div>
   );
