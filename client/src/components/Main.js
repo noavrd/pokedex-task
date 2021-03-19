@@ -42,10 +42,10 @@ function Main(props) {
       console.log("catch clicked!");
       if (e.target.innerText === "Catch") {
         e.target.innerText = "Release";
-        setAddOrRemove({ mode: "Release", pokemon: pokemonDetails });
+        setAddOrRemove({ mode: "Catch", pokemon: pokemonDetails });
       } else {
         e.target.innerText = "Catch";
-        setAddOrRemove({ mode: "Catch", pokemon: pokemonDetails });
+        setAddOrRemove({ mode: "Release", pokemon: pokemonDetails });
       }
       // setPokemonFromClick(e.target.innerText);
     }
