@@ -70,7 +70,6 @@ function Main(props) {
         e.target.innerText = "Catch";
         setAddOrRemove({ mode: "Release", pokemon: pokemonDetails });
       }
-      // setPokemonFromClick(e.target.innerText);
     }
   }
 

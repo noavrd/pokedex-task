@@ -9,6 +9,13 @@ function App() {
   }
   return (
     <div>
+      <header>
+        {" "}
+        <img
+          src="https://raw.githubusercontent.com/omariosouto/pokedex/master/docs/logo.png"
+          alt="logo"
+        ></img>{" "}
+      </header>
       <Main />
     </div>
   );
