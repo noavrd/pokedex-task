@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-const BASE_URL = "http://localhost:3001/api/collection";
+import React, { useState } from "react";
 
 function Collection(props) {
   const [indexCollection, seIndexCollection] = useState(0);
@@ -21,10 +19,13 @@ function Collection(props) {
       seIndexCollection((prev) => prev + 1);
     }
   }
-
+function checkIndex(n) {
+  if(n) {
+    return 
+  }
+}
   return (
     <div>
-      {console.log("COLLECTION ", collection)}
       <button onClick={() => reverseIndex()}>◀️</button>
       <img
         className="pokemonCard-image"
