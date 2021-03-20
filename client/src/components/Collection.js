@@ -24,9 +24,11 @@ function Collection(props) {
 
   return (
     <div>
+      {console.log("COLLECTION ", collection)}
       <button onClick={() => reverseIndex()}>◀️</button>
       <img
         className="pokemonCard-image"
+        onClick={props.clickHandler}
         src={
           collection[indexCollection]
             ? collection[indexCollection].url.front
@@ -42,7 +44,7 @@ function Collection(props) {
             ? collection[indexCollection].url.front
             : undefined)
         }
-        alt="pokemon"
+        alt={`${collection[indexCollection].name}`}
       ></img>
       <button onClick={() => forwordIndex()}>▶️</button>
     </div>

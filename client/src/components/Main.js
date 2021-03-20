@@ -19,6 +19,7 @@ function Main(props) {
   const ifDefined = useRef(false);
 
   function clickHandler(e) {
+    console.log(e.target);
     if (e.target.className === "searchPokemon") {
       if (catchOrRelease === "Catch") {
         setCatchOrRealease("Release");
@@ -54,6 +55,11 @@ function Main(props) {
       }
       // setPokemonFromClick(e.target.innerText);
     }
+    if (e.target.className === "pokemonCard-image") {
+      console.log("+++++++++", e.target.alt);
+      setPokemonFromClick(e.target.alt);
+      setInputValue(e.target.alt);
+    }
   }
 
   useEffect(() => {
@@ -65,6 +71,10 @@ function Main(props) {
             console.log(response);
           })
           .catch((error) => console.log(error));
+        axios
+          .get(`${BASE_URL}/collection`)
+          .then((response) => setCollection([...response.data]))
+          .catch((error) => console.log(error));
       }
       if (catchOrRelease === "Catch") {
         axios
@@ -74,6 +84,10 @@ function Main(props) {
           .then((response) => {
             console.log(response);
           })
+          .catch((error) => console.log(error));
+        axios
+          .get(`${BASE_URL}/collection`)
+          .then((response) => setCollection([...response.data]))
           .catch((error) => console.log(error));
       }
       ifCatchOrRealseClicked.current = false;
@@ -150,7 +164,7 @@ function Main(props) {
         ifDefined={ifDefined.current}
         clickHandler={clickHandler}
       />
-      <Collection collection={collection} />
+      <Collection collection={collection} clickHandler={clickHandler} />
     </div>
   );
 }
