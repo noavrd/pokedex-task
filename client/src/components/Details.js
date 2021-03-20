@@ -1,5 +1,7 @@
-import Type from "./TypeOfPokemon.js";
-import React from "react";
+import Type from "./Type.js";
+import React, { useState, useEffect, useRef } from "react";
+import axios from "axios";
+const BASE_URL = "http://localhost:3001/api";
 
 function Details(props) {
   return (
