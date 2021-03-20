@@ -6,10 +6,7 @@ function Collection(props) {
   const [collection, setCollection] = useState([]);
   const pokemon = props.addOrRemove.pokemon;
   const mode = props.addOrRemove.mode;
-  console.log("COLLECTIOM", pokemon);
   useEffect(() => {
-    console.log("modemodemodemode", mode);
-    console.log("pokemon", pokemon);
     if (mode === "Catch") {
       axios
         .post(`http://localhost:3001/api/collection/catch`, pokemon)
@@ -18,9 +15,7 @@ function Collection(props) {
         })
         .catch((error) => console.log(error));
     }
-   
   });
-
   return <div></div>;
 }
 
