@@ -82,6 +82,7 @@ function Main(props) {
 
   useEffect(() => {
     axios.get(`${BASE_URL}/collection`).then((response) => {
+      setCollection([...response.data]);
       let bool = false;
       let tempArr = [...response.data];
       tempArr.forEach((pokemon) => {
@@ -149,7 +150,7 @@ function Main(props) {
         ifDefined={ifDefined.current}
         clickHandler={clickHandler}
       />
-      <Collection />
+      <Collection collection={collection} />
     </div>
   );
 }
