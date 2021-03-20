@@ -1,5 +1,7 @@
-import React, { Component, useDebugValue, useEffect } from "react";
+import React, { Component, useEffect, useState } from "react";
 import axios from "axios";
+import TypeInTypes from "./TypeInTypes";
+
 function Types(props) {
   if (props.ifDefined) {
     return (
@@ -11,7 +13,8 @@ function Types(props) {
         {props.typeListValue ? (
           props.typeListValue.map((objType, index) => (
             <li onClick={props.clickHandler} key={index} className="typeList">
-              {objType.name}
+              {/* {objType.name} */}
+              <TypeInTypes pokemonName={objType.name} />
             </li>
           ))
         ) : (

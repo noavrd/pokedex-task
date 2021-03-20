@@ -5,8 +5,8 @@ const BASE_URL = "http://localhost:3001/api";
 
 function Details(props) {
   return (
-    <div className="details-div">
-      <ul>
+    <div className="pokemonCard">
+      <ul className="pokemonCard-content">
         <li className="name">Name:{props.pokemon.name}</li>
         <li className="height">Height:{props.pokemon.height}</li>
         <li className="weight">Weight:{props.pokemon.weight}</li>
@@ -26,7 +26,7 @@ function Details(props) {
 
       {props.ifDefined ? (
         <img
-          className="details-img"
+          className="pokemonCard-image"
           src={props.pokemon.url ? props.pokemon.url.front : undefined}
           onMouseOver={(e) =>
             (e.currentTarget.src = props.pokemon.url
