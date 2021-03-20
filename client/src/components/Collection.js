@@ -44,7 +44,11 @@ function Collection(props) {
             ? collection[indexCollection].url.front
             : undefined)
         }
-        alt={`${collection[indexCollection].name}`}
+        alt={`${
+          collection[indexCollection]
+            ? `${collection[indexCollection].name}`
+            : ""
+        }`}
       ></img>
       <button onClick={() => forwordIndex()}>▶️</button>
     </div>
