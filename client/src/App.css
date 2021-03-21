@@ -1,6 +1,16 @@
-header {
-  margin-left: 35vw;
+h1 {
+  background: rgb(220, 50, 159);
+  background: linear-gradient(
+    90deg,
+    rgba(220, 50, 159, 1) 0%,
+    rgba(246, 45, 56, 1) 50%,
+    rgba(248, 174, 64, 1) 100%
+  );
+  color: white;
+  text-align: center;
+  font-size: 8vh;
 }
+
 .pokemonCard {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   transition: 0.3s;

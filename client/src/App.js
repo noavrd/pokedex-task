@@ -10,11 +10,7 @@ function App() {
   return (
     <div>
       <header>
-        {" "}
-        <img
-          src="https://raw.githubusercontent.com/omariosouto/pokedex/master/docs/logo.png"
-          alt="logo"
-        ></img>{" "}
+        <h1>Pokédex</h1>
       </header>
       <Main />
     </div>
