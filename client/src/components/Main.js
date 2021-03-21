@@ -6,6 +6,7 @@ import axios from "axios";
 const BASE_URL = "http://localhost:3001/api";
 
 function Main(props) {
+  const [indexCollection, seIndexCollection] = useState(0);
   const [inputValue, setInputValue] = useState("");
   const [pokemonDetails, setPokemonDetails] = useState([]);
   const [pokemonFromClick, setPokemonFromClick] = useState("");
@@ -18,15 +19,29 @@ function Main(props) {
   const whoToUpdate = useRef("");
   const ifDefined = useRef(false);
 
+  function reverseIndex() {
+    if (indexCollection === 0) {
+      seIndexCollection((prev) => (prev = collection.length - 1));
+    } else {
+      seIndexCollection((prev) => prev - 1);
+    }
+  }
+
+  function forwordIndex() {
+    if (indexCollection === collection.length - 1) {
+      seIndexCollection((prev) => (prev = 0));
+    } else {
+      seIndexCollection((prev) => prev + 1);
+    }
+  }
+
   function clickHandler(e) {
-    console.log(e.target);
     if (e.target.className === "searchPokemon") {
       if (catchOrRelease === "Catch") {
         setCatchOrRealease("Release");
       } else {
         setCatchOrRealease("Catch");
       }
-      console.log("catchOrRelease", catchOrRelease);
       whoToUpdate.current = "searchPokemon";
       setPokemonFromClick(inputValue);
     }
@@ -56,7 +71,6 @@ function Main(props) {
       // setPokemonFromClick(e.target.innerText);
     }
     if (e.target.className === "pokemonCard-image") {
-      console.log("+++++++++", e.target.alt);
       setPokemonFromClick(e.target.alt);
       setInputValue(e.target.alt);
     }
@@ -68,26 +82,17 @@ function Main(props) {
         axios
           .post(`http://localhost:3001/api/collection/catch`, pokemonDetails)
           .then((response) => {
-            console.log(response);
+            setCollection([...response.data]);
           })
-          .catch((error) => console.log(error));
-        axios
-          .get(`${BASE_URL}/collection`)
-          .then((response) => setCollection([...response.data]))
           .catch((error) => console.log(error));
       }
       if (catchOrRelease === "Catch") {
         axios
-          .delete(
-            `http://localhost:3001/api/collection/release/${pokemonDetails.name}`
-          )
+          .delete(`http://localhost:3001/api/collection/release/${inputValue}`)
           .then((response) => {
-            console.log(response);
+            setCollection([...response.data]);
+            seIndexCollection((prev) => prev - 1);
           })
-          .catch((error) => console.log(error));
-        axios
-          .get(`${BASE_URL}/collection`)
-          .then((response) => setCollection([...response.data]))
           .catch((error) => console.log(error));
       }
       ifCatchOrRealseClicked.current = false;
@@ -100,7 +105,7 @@ function Main(props) {
       let bool = false;
       let tempArr = [...response.data];
       tempArr.forEach((pokemon) => {
-        if (pokemon.name === inputValue) {
+        if (pokemon.name === pokemonFromClick) {
           bool = true;
         }
       });
@@ -113,7 +118,6 @@ function Main(props) {
   }, [pokemonFromClick]);
 
   useEffect(() => {
-    console.log("MAIN RANDERRRRRRRRRRRRRRRR");
     if (whoToUpdate.current === "searchPokemon") {
       axios
         .get(`${BASE_URL}/pokemon/${pokemonFromClick}`)
@@ -141,10 +145,7 @@ function Main(props) {
 
   return (
     <div>
-      {console.log(
-        " ifCatchOrRealseClicked.current",
-        ifCatchOrRealseClicked.current
-      )}
+      {console.log("INDEXXXXXX", indexCollection)}
       <input
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
@@ -164,7 +165,14 @@ function Main(props) {
         ifDefined={ifDefined.current}
         clickHandler={clickHandler}
       />
-      <Collection collection={collection} clickHandler={clickHandler} />
+      <Collection
+        collection={collection}
+        clickHandler={clickHandler}
+        seIndexCollection={seIndexCollection}
+        indexCollection={indexCollection}
+        reverseIndex={reverseIndex}
+        forwordIndex={forwordIndex}
+      />
     </div>
   );
 }

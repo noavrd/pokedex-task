@@ -27,6 +27,7 @@ collection.delete("/release/:id", (req, res) => {
     (obj) => obj.name === req.params.id
   );
   collectionArr.splice(deleteIndex, 1);
+  console.log(collectionArr);
   res.status(200).json(collectionArr);
 });
 

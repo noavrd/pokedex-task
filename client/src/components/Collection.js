@@ -3,28 +3,13 @@ import axios from "axios";
 const BASE_URL = "http://localhost:3001/api/collection";
 
 function Collection(props) {
-  const [indexCollection, seIndexCollection] = useState(0);
+  const { seIndexCollection } = props;
+  const { indexCollection } = props;
   const { collection } = props;
-
-  function reverseIndex() {
-    if (indexCollection === 0) {
-      seIndexCollection((prev) => (prev = collection.length - 1));
-    } else {
-      seIndexCollection((prev) => prev - 1);
-    }
-  }
-
-  function forwordIndex() {
-    if (indexCollection === collection.length - 1) {
-      seIndexCollection((prev) => (prev = 0));
-    } else {
-      seIndexCollection((prev) => prev + 1);
-    }
-  }
-
+  const { reverseIndex } = props;
+  const { forwordIndex } = props;
   return (
     <div>
-      {console.log("COLLECTION ", collection)}
       <button onClick={() => reverseIndex()}>◀️</button>
       <img
         className="pokemonCard-image"
@@ -44,7 +29,11 @@ function Collection(props) {
             ? collection[indexCollection].url.front
             : undefined)
         }
-        alt={`${collection[indexCollection].name}`}
+        alt={
+          collection[indexCollection]
+            ? `${collection[indexCollection].name}`
+            : ""
+        }
       ></img>
       <button onClick={() => forwordIndex()}>▶️</button>
     </div>
