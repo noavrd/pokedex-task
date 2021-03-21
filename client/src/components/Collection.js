@@ -5,6 +5,21 @@ const BASE_URL = "http://localhost:3001/api/collection";
 function Collection(props) {
   const [indexCollection, seIndexCollection] = useState(0);
   const { collection } = props;
+  const mode = props.addOrRemove.mode;
+  console.log(props.addOrRemove);
+  const pokemon = props.addOrRemove.pokemon;
+  console.log(props);
+  useEffect(() => {
+    console.log("pokemon", pokemon);
+    if (mode === "Catch") {
+      axios
+        .post(`http://localhost:3001/api/collection/catch`, pokemon)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => console.log(error));
+    }
+  });
 
   function reverseIndex() {
     if (indexCollection === 0) {
@@ -13,7 +28,6 @@ function Collection(props) {
       seIndexCollection((prev) => prev - 1);
     }
   }
-
   function forwordIndex() {
     if (indexCollection === collection.length - 1) {
       seIndexCollection((prev) => (prev = 0));
@@ -29,13 +43,14 @@ function Collection(props) {
       <img
         className="pokemonCard-image"
         onClick={props.clickHandler}
+{console.log(collection[indexCollection])}
         src={
           collection[indexCollection]
-            ? collection[indexCollection].url.front
+            ? collection[indexCollection].url
             : ""
         }
         onMouseOver={(e) =>
-          (e.currentTarget.src = collection[indexCollection].url.front
+          (e.currentTarget.src = collection[indexCollection].url
             ? collection[indexCollection].url.back
             : undefined)
         }

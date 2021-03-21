@@ -13,18 +13,24 @@ function Main(props) {
   const [collection, setCollection] = useState([]);
   const [catchOrRelease, setCatchOrRelease] = useState("catch");
   const [typesHidden, setTypesHidden] = useState("hidden");
-
-  const ifCatchOrRealseClicked = useRef(false);
+  const [addOrRemove, setAddOrRemove] = useState({
+    mode: "",
+    pokemon: {},
+  });
+  const ifCatchOrReleaseClicked = useRef(false);
   const whoToUpdate = useRef("");
   const ifDefined = useRef(false);
+  const [catchOrRemove, setCatchOrRemove] = useState("Catch");
 
   function clickHandler(e) {
     console.log(e.target);
     if (e.target.className === "searchPokemon") {
       if (catchOrRelease === "Catch") {
         setCatchOrRelease("Release");
+        setAddOrRemove({ mode: "Catch", pokemon: pokemonDetails });
       } else {
         setCatchOrRelease("Catch");
+        setAddOrRemove({ mode: "Release", pokemon: pokemonDetails });
       }
       console.log("catchOrRelease", catchOrRelease);
       whoToUpdate.current = "searchPokemon";
@@ -44,14 +50,16 @@ function Main(props) {
       setPokemonFromClick(e.target.innerText);
     }
 
-    if (e.target.className === "catchOrRealseButton") {
+    if (e.target.className === "catchOrReleaseButton") {
       ifCatchOrReleaseClicked.current = true;
       if (e.target.innerText === "Catch") {
         e.target.innerText = "Release";
         setCatchOrRelease("Release");
+        setAddOrRemove({ mode: "Catch", pokemon: pokemonDetails });
       } else {
         e.target.innerText = "Catch";
         setCatchOrRelease("Catch");
+        setAddOrRemove({ mode: "Release", pokemon: pokemonDetails });
       }
       // setPokemonFromClick(e.target.innerText);
     }
@@ -90,7 +98,7 @@ function Main(props) {
           .then((response) => setCollection([...response.data]))
           .catch((error) => console.log(error));
       }
-      ifCatchOrRealseClicked.current = false;
+      ifCatchOrReleaseClicked.current = false;
     }
   }, [catchOrRelease]);
 
@@ -157,7 +165,11 @@ function Main(props) {
         catchOrRelease={catchOrRelease}
         clickHandler={clickHandler}
       />
-      <Collection collection={collection} clickHandler={clickHandler} />
+      <Collection
+        collection={collection}
+        clickHandler={clickHandler}
+        addOrRemove={addOrRemove}
+      />
       <Types
         visibility={typesHidden}
         typeListValue={typeListValue}

@@ -13,8 +13,8 @@ function Types(props) {
         {props.typeListValue ? (
           props.typeListValue.map((objType, index) => (
             <li onClick={props.clickHandler} key={index} className="typeList">
-              {/* {objType.name} */}
-              <TypeInTypes pokemonName={objType.name} />
+              {objType.name}
+              {/* <TypeInTypes pokemonName={objType.name} /> */}
             </li>
           ))
         ) : (
