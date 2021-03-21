@@ -19,12 +19,14 @@ function Main(props) {
   const ifDefined = useRef(false);
 
   function clickHandler(e) {
+    console.log(e.target);
     if (e.target.className === "searchPokemon") {
       if (catchOrRelease === "Catch") {
         setCatchOrRealease("Release");
       } else {
         setCatchOrRealease("Catch");
       }
+      console.log("catchOrRelease", catchOrRelease);
       whoToUpdate.current = "searchPokemon";
       setPokemonFromClick(inputValue);
     }
@@ -51,8 +53,10 @@ function Main(props) {
         e.target.innerText = "Catch";
         setCatchOrRealease("Catch");
       }
+      // setPokemonFromClick(e.target.innerText);
     }
     if (e.target.className === "pokemonCard-image") {
+      console.log("+++++++++", e.target.alt);
       setPokemonFromClick(e.target.alt);
       setInputValue(e.target.alt);
     }
@@ -64,8 +68,12 @@ function Main(props) {
         axios
           .post(`http://localhost:3001/api/collection/catch`, pokemonDetails)
           .then((response) => {
-            setCollection([...response.data]);
+            console.log(response);
           })
+          .catch((error) => console.log(error));
+        axios
+          .get(`${BASE_URL}/collection`)
+          .then((response) => setCollection([...response.data]))
           .catch((error) => console.log(error));
       }
       if (catchOrRelease === "Catch") {
@@ -74,8 +82,12 @@ function Main(props) {
             `http://localhost:3001/api/collection/release/${pokemonDetails.name}`
           )
           .then((response) => {
-            setCollection([...response.data]);
+            console.log(response);
           })
+          .catch((error) => console.log(error));
+        axios
+          .get(`${BASE_URL}/collection`)
+          .then((response) => setCollection([...response.data]))
           .catch((error) => console.log(error));
       }
       ifCatchOrRealseClicked.current = false;
@@ -101,6 +113,7 @@ function Main(props) {
   }, [pokemonFromClick]);
 
   useEffect(() => {
+    console.log("MAIN RANDERRRRRRRRRRRRRRRR");
     if (whoToUpdate.current === "searchPokemon") {
       axios
         .get(`${BASE_URL}/pokemon/${pokemonFromClick}`)
@@ -128,6 +141,10 @@ function Main(props) {
 
   return (
     <div>
+      {console.log(
+        " ifCatchOrRealseClicked.current",
+        ifCatchOrRealseClicked.current
+      )}
       <input
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
