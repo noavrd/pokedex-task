@@ -15,6 +15,7 @@ function Types(props) {
             <li onClick={props.clickHandler} key={index} className="typeList">
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
               {objType.name}
               {/* <TypeInTypes pokemonName={objType.name} /> */}
 =======
@@ -25,6 +26,10 @@ function Types(props) {
               {/* {objType.name} */}
               <TypeInTypes pokemonName={objType.name} />
 >>>>>>> parent of 39ef817 (fixed code)
+=======
+              {/* {objType.name} */}
+              <TypeInTypes pokemonName={objType.name} />
+>>>>>>> 832e0841381c63f89234fc8c3906fde4f789ed8d
             </li>
           ))
         ) : (

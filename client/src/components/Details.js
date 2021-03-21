@@ -44,7 +44,7 @@ function Details(props) {
         <></>
       )}
       {props.ifDefined ? (
-        <button className="catchOrReleaseButton" onClick={props.clickHandler}>
+        <button className="catchOrRealseButton" onClick={props.clickHandler}>
           {props.catchOrRelease}
         </button>
       ) : (

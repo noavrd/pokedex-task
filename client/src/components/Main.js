@@ -11,8 +11,9 @@ function Main(props) {
   const [pokemonFromClick, setPokemonFromClick] = useState("");
   const [typeListValue, setTypeListValue] = useState([]);
   const [collection, setCollection] = useState([]);
-  const [catchOrRelease, setCatchOrRelease] = useState("catch");
+  const [catchOrRelease, setCatchOrRealease] = useState("catch");
   const [typesHidden, setTypesHidden] = useState("hidden");
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
   const [addOrRemove, setAddOrRemove] = useState({
@@ -28,6 +29,10 @@ function Main(props) {
 
   const ifCatchOrRealseClicked = useRef(false);
 >>>>>>> parent of 39ef817 (fixed code)
+=======
+
+  const ifCatchOrRealseClicked = useRef(false);
+>>>>>>> 832e0841381c63f89234fc8c3906fde4f789ed8d
   const whoToUpdate = useRef("");
   const ifDefined = useRef(false);
   const [catchOrRemove, setCatchOrRemove] = useState("Catch");
@@ -36,30 +41,37 @@ function Main(props) {
     console.log(e.target);
     if (e.target.className === "searchPokemon") {
       if (catchOrRelease === "Catch") {
+<<<<<<< HEAD
         setCatchOrRelease("Release");
         setAddOrRemove({ mode: "Catch", pokemon: pokemonDetails });
       } else {
         setCatchOrRelease("Catch");
         setAddOrRemove({ mode: "Release", pokemon: pokemonDetails });
+=======
+        setCatchOrRealease("Release");
+      } else {
+        setCatchOrRealease("Catch");
+>>>>>>> 832e0841381c63f89234fc8c3906fde4f789ed8d
       }
       console.log("catchOrRelease", catchOrRelease);
       whoToUpdate.current = "searchPokemon";
       setPokemonFromClick(inputValue);
     }
-    //click on the type
+
     if (e.target.className === "pokemonType") {
       whoToUpdate.current = "pokemonType";
       setPokemonFromClick(
         e.target.innerText.slice(1, e.target.innerText.length)
       );
     }
-    //change the pokemon when clicking on it
+
     if (e.target.className === "typeList") {
       whoToUpdate.current = "searchPokemon";
       setInputValue(e.target.innerText);
       setPokemonFromClick(e.target.innerText);
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     if (e.target.className === "catchOrReleaseButton") {
@@ -78,6 +90,16 @@ function Main(props) {
         e.target.innerText = "Catch";
         setCatchOrRelease("Catch");
         setAddOrRemove({ mode: "Release", pokemon: pokemonDetails });
+=======
+    if (e.target.className === "catchOrRealseButton") {
+      ifCatchOrRealseClicked.current = true;
+      if (e.target.innerText === "Catch") {
+        e.target.innerText = "Release";
+        setCatchOrRealease("Release");
+      } else {
+        e.target.innerText = "Catch";
+        setCatchOrRealease("Catch");
+>>>>>>> 832e0841381c63f89234fc8c3906fde4f789ed8d
       }
       // setPokemonFromClick(e.target.innerText);
     }
@@ -89,7 +111,7 @@ function Main(props) {
   }
 
   useEffect(() => {
-    if (ifCatchOrReleaseClicked.current) {
+    if (ifCatchOrRealseClicked.current) {
       if (catchOrRelease === "Release") {
         axios
           .post(`http://localhost:3001/api/collection/catch`, pokemonDetails)
@@ -131,14 +153,15 @@ function Main(props) {
         }
       });
       if (bool) {
-        setCatchOrRelease("Release");
+        setCatchOrRealease("Release");
       } else {
-        setCatchOrRelease("Catch");
+        setCatchOrRealease("Catch");
       }
     });
   }, [pokemonFromClick]);
 
   useEffect(() => {
+    console.log("MAIN RANDERRRRRRRRRRRRRRRR");
     if (whoToUpdate.current === "searchPokemon") {
       axios
         .get(`${BASE_URL}/pokemon/${pokemonFromClick}`)
@@ -167,8 +190,13 @@ function Main(props) {
   return (
     <div>
       {console.log(
+<<<<<<< HEAD
         " ifCatchOrReleaseClicked.current",
         ifCatchOrReleaseClicked.current
+=======
+        " ifCatchOrRealseClicked.current",
+        ifCatchOrRealseClicked.current
+>>>>>>> 832e0841381c63f89234fc8c3906fde4f789ed8d
       )}
       <input
         value={inputValue}
@@ -183,17 +211,21 @@ function Main(props) {
         catchOrRelease={catchOrRelease}
         clickHandler={clickHandler}
       />
+<<<<<<< HEAD
       <Collection
         collection={collection}
         clickHandler={clickHandler}
         addOrRemove={addOrRemove}
       />
+=======
+>>>>>>> 832e0841381c63f89234fc8c3906fde4f789ed8d
       <Types
         visibility={typesHidden}
         typeListValue={typeListValue}
         ifDefined={ifDefined.current}
         clickHandler={clickHandler}
       />
+      <Collection collection={collection} clickHandler={clickHandler} />
     </div>
   );
 }
