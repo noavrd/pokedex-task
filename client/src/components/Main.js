@@ -13,11 +13,16 @@ function Main(props) {
   const [collection, setCollection] = useState([]);
   const [catchOrRelease, setCatchOrRelease] = useState("catch");
   const [typesHidden, setTypesHidden] = useState("hidden");
+<<<<<<< HEAD
   const [addOrRemove, setAddOrRemove] = useState({
     mode: "",
     pokemon: {},
   });
   const ifCatchOrReleaseClicked = useRef(false);
+=======
+
+  const ifCatchOrRealseClicked = useRef(false);
+>>>>>>> parent of 39ef817 (fixed code)
   const whoToUpdate = useRef("");
   const ifDefined = useRef(false);
   const [catchOrRemove, setCatchOrRemove] = useState("Catch");
@@ -50,7 +55,11 @@ function Main(props) {
       setPokemonFromClick(e.target.innerText);
     }
 
+<<<<<<< HEAD
     if (e.target.className === "catchOrReleaseButton") {
+=======
+    if (e.target.className === "catchOrRealseButton") {
+>>>>>>> parent of 39ef817 (fixed code)
       ifCatchOrReleaseClicked.current = true;
       if (e.target.innerText === "Catch") {
         e.target.innerText = "Release";
@@ -98,7 +107,7 @@ function Main(props) {
           .then((response) => setCollection([...response.data]))
           .catch((error) => console.log(error));
       }
-      ifCatchOrReleaseClicked.current = false;
+      ifCatchOrRealseClicked.current = false;
     }
   }, [catchOrRelease]);
 
