@@ -27,6 +27,7 @@ input :focus {
   margin-top: 8.5vh;
   margin-left: 3vw;
 }
+
 .pokemonCard {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   transition: 0.3s;
@@ -55,12 +56,6 @@ input :focus {
 }
 .pokemonCard-content {
   padding: 20px 100px;
-}
-input {
-  border-radius: 6px;
-  margin-left: 40vw;
-  font-size: 20px;
-  margin-top: 5vh;
 }
 button {
   font-size: 18px;
