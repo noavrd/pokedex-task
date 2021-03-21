@@ -1,7 +1,5 @@
 import Type from "./Type.js";
-import React, { useState, useEffect, useRef } from "react";
-import axios from "axios";
-const BASE_URL = "http://localhost:3001/api";
+import React from "react";
 
 function Details(props) {
   return (

@@ -1,9 +1,6 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-const BASE_URL = "http://localhost:3001/api/collection";
+import React from "react";
 
 function Collection(props) {
-  const { seIndexCollection } = props;
   const { indexCollection } = props;
   const { collection } = props;
   const { reverseIndex } = props;

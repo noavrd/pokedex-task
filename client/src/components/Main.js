@@ -3,7 +3,7 @@ import Details from "./Details.js";
 import Types from "./Types.js";
 import Collection from "./Collection";
 import axios from "axios";
-const BASE_URL = "http://localhost:3001/api";
+const BASE_URL = "/api";
 
 function Main(props) {
   const [indexCollection, seIndexCollection] = useState(0);
@@ -91,7 +91,7 @@ function Main(props) {
     if (ifCatchOrRealseClicked.current) {
       if (catchOrRelease === "Release") {
         axios
-          .post(`http://localhost:3001/api/collection/catch`, pokemonDetails)
+          .post(`/api/collection/catch`, pokemonDetails)
           .then((response) => {
             setCollection([...response.data]);
           })
@@ -99,7 +99,7 @@ function Main(props) {
       }
       if (catchOrRelease === "Catch") {
         axios
-          .delete(`http://localhost:3001/api/collection/release/${inputValue}`)
+          .delete(`/api/collection/release/${inputValue}`)
           .then((response) => {
             setCollection([...response.data]);
             seIndexCollection((prev) => prev - 1);
