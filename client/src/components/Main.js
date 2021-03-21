@@ -14,11 +14,16 @@ function Main(props) {
   const [catchOrRelease, setCatchOrRelease] = useState("catch");
   const [typesHidden, setTypesHidden] = useState("hidden");
 <<<<<<< HEAD
+<<<<<<< HEAD
   const [addOrRemove, setAddOrRemove] = useState({
     mode: "",
     pokemon: {},
   });
   const ifCatchOrReleaseClicked = useRef(false);
+=======
+
+  const ifCatchOrRealseClicked = useRef(false);
+>>>>>>> parent of 39ef817 (fixed code)
 =======
 
   const ifCatchOrRealseClicked = useRef(false);
@@ -56,7 +61,11 @@ function Main(props) {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     if (e.target.className === "catchOrReleaseButton") {
+=======
+    if (e.target.className === "catchOrRealseButton") {
+>>>>>>> parent of 39ef817 (fixed code)
 =======
     if (e.target.className === "catchOrRealseButton") {
 >>>>>>> parent of 39ef817 (fixed code)
