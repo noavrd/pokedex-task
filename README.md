@@ -1,1 +1,1 @@
-heroku link https://best-pokadex.herokuapp.com.
+heroku link   https://best-pokadex.herokuapp.com/
