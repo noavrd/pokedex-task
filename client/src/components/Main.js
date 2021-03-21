@@ -11,45 +11,43 @@ function Main(props) {
   const [pokemonFromClick, setPokemonFromClick] = useState("");
   const [typeListValue, setTypeListValue] = useState([]);
   const [collection, setCollection] = useState([]);
-  const [catchOrRelease, setCatchOrRealease] = useState("catch");
+  const [catchOrRelease, setCatchOrRelease] = useState("catch");
   const [typesHidden, setTypesHidden] = useState("hidden");
-
-  const ifCatchOrRealseClicked = useRef(false);
+  const ifCatchOrReleaseClicked = useRef(false);
   const whoToUpdate = useRef("");
   const ifDefined = useRef(false);
 
   function clickHandler(e) {
     if (e.target.className === "searchPokemon") {
       if (catchOrRelease === "Catch") {
-        setCatchOrRealease("Release");
+        setCatchOrRelease("Release");
       } else {
-        setCatchOrRealease("Catch");
+        setCatchOrRelease("Catch");
       }
       whoToUpdate.current = "searchPokemon";
       setPokemonFromClick(inputValue);
     }
-
+    //click on the type
     if (e.target.className === "pokemonType") {
       whoToUpdate.current = "pokemonType";
       setPokemonFromClick(
         e.target.innerText.slice(1, e.target.innerText.length)
       );
     }
-
+    //change the pokemon when clicking on it
     if (e.target.className === "typeList") {
       whoToUpdate.current = "searchPokemon";
       setInputValue(e.target.innerText);
       setPokemonFromClick(e.target.innerText);
     }
-
-    if (e.target.className === "catchOrRealseButton") {
-      ifCatchOrRealseClicked.current = true;
+    if (e.target.className === "catchOrReleaseButton") {
+      ifCatchOrReleaseClicked.current = true;
       if (e.target.innerText === "Catch") {
         e.target.innerText = "Release";
-        setCatchOrRealease("Release");
+        setCatchOrRelease("Release");
       } else {
         e.target.innerText = "Catch";
-        setCatchOrRealease("Catch");
+        setCatchOrRelease("Catch");
       }
     }
     if (e.target.className === "pokemonCard-image") {
@@ -57,9 +55,8 @@ function Main(props) {
       setInputValue(e.target.alt);
     }
   }
-
   useEffect(() => {
-    if (ifCatchOrRealseClicked.current) {
+    if (ifCatchOrReleaseClicked.current) {
       if (catchOrRelease === "Release") {
         axios
           .post(`http://localhost:3001/api/collection/catch`, pokemonDetails)
@@ -78,10 +75,9 @@ function Main(props) {
           })
           .catch((error) => console.log(error));
       }
-      ifCatchOrRealseClicked.current = false;
+      ifCatchOrReleaseClicked.current = false;
     }
   }, [catchOrRelease]);
-
   useEffect(() => {
     axios.get(`${BASE_URL}/collection`).then((response) => {
       setCollection([...response.data]);
@@ -93,13 +89,12 @@ function Main(props) {
         }
       });
       if (bool) {
-        setCatchOrRealease("Release");
+        setCatchOrRelease("Release");
       } else {
-        setCatchOrRealease("Catch");
+        setCatchOrRelease("Catch");
       }
     });
   }, [pokemonFromClick]);
-
   useEffect(() => {
     if (whoToUpdate.current === "searchPokemon") {
       axios
@@ -117,7 +112,6 @@ function Main(props) {
         .get(`${BASE_URL}/type/${pokemonFromClick}`)
         .then((response) => {
           let tempArr = [...response.data.pokemons];
-          let namesOfTempArr = [];
           setTypeListValue(tempArr);
         })
         .catch((err) => {

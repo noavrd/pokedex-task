@@ -40,7 +40,10 @@ button {
   background-color: rgb(241, 227, 96);
   border-radius: 6px;
 }
-
+li {
+  list-style-type: none;
+  line-height: 1.8em;
+}
 /* margin: 0;
 line-height: 18px;
 height: 18px;

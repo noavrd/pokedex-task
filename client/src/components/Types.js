@@ -1,6 +1,5 @@
-import React, { Component, useEffect, useState } from "react";
-import axios from "axios";
-import TypeInTypes from "./TypeInTypes";
+import React from "react";
+import PokemonInType from "./PokemonInType";
 
 function Types(props) {
   if (props.ifDefined) {
@@ -9,11 +8,15 @@ function Types(props) {
         <ul className="typesList" style={{ visibility: `${props.visibility}` }}>
           Types
         </ul>
-        {console.log("TYPES PROPS", props)}
         {props.typeListValue ? (
           props.typeListValue.map((objType, index) => (
             <li onClick={props.clickHandler} key={index} className="typeList">
+<<<<<<< HEAD
               <TypeInTypes pokemonName={objType.name} />
+=======
+              {/* <PokemonInType pokemonName={objType.name} /> */}
+              {objType.name}
+>>>>>>> 39ef817ddb02c95b4b1212da6513980617088148
             </li>
           ))
         ) : (
@@ -25,5 +28,4 @@ function Types(props) {
     return <></>;
   }
 }
-
 export default Types;

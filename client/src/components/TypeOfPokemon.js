@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 
-function Type(props) {
-
+function TypeOfPokemon(props) {
   return (
     <span className="pokemonType" onClick={props.clickHandler}>
       {" "}
@@ -10,4 +9,4 @@ function Type(props) {
   );
 }
 
-export default Type;
+export default TypeOfPokemon;
