@@ -1,5 +1,31 @@
-header {
-  margin-left: 35vw;
+h1 {
+  background: rgb(220, 50, 159);
+  background: linear-gradient(
+    90deg,
+    rgba(220, 50, 159, 1) 0%,
+    rgba(246, 45, 56, 1) 50%,
+    rgba(248, 174, 64, 1) 100%
+  );
+  color: white;
+  text-align: center;
+  font-size: 8vh;
+}
+input {
+  border: none;
+  border-bottom: 2px solid black;
+}
+input :focus {
+  border-color: none;
+}
+.collection {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  transition: 0.3s;
+  border-radius: 5px;
+  position: left;
+  margin-right: 74vw;
+  padding-bottom: 3vh;
+  margin-top: 8.5vh;
+  margin-left: 3vw;
 }
 .pokemonCard {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
@@ -12,6 +38,9 @@ header {
   color: #ce403a;
 }
 .pokemonCard:hover {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+.collection:hover {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 }
 .pokemonCard-image {
@@ -40,13 +69,3 @@ button {
   background-color: rgb(241, 227, 96);
   border-radius: 6px;
 }
-
-/* margin: 0;
-line-height: 18px;
-height: 18px;
-padding: 10px;
-border: rgb(44, 41, 41);
-background: white;
-
-font-family: Lato, sans-serif;
-color: rgb(12, 9, 9); */

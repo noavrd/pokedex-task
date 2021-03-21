@@ -7,11 +7,9 @@ function Types(props) {
         <ul className="typesList" style={{ visibility: `${props.visibility}` }}>
           Types
         </ul>
-        {console.log("TYPES PROPS", props)}
         {props.typeListValue ? (
           props.typeListValue.map((objType, index) => (
             <li onClick={props.clickHandler} key={index} className="typeList">
-              {console.log(objType)}
               {objType.name}
               <img
                 className="type-img"

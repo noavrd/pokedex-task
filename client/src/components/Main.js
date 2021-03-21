@@ -12,7 +12,7 @@ function Main(props) {
   const [pokemonFromClick, setPokemonFromClick] = useState("");
   const [typeListValue, setTypeListValue] = useState([]);
   const [collection, setCollection] = useState([]);
-  const [catchOrRelease, setCatchOrRealease] = useState("catch");
+  const [catchOrRelease, setCatchOrRelease] = useState("Catch");
   const [typesHidden, setTypesHidden] = useState("hidden");
 
   const ifCatchOrRealseClicked = useRef(false);
@@ -38,9 +38,9 @@ function Main(props) {
   function clickHandler(e) {
     if (e.target.className === "searchPokemon") {
       if (catchOrRelease === "Catch") {
-        setCatchOrRealease("Release");
+        setCatchOrRelease("Release");
       } else {
-        setCatchOrRealease("Catch");
+        setCatchOrRelease("Catch");
       }
       whoToUpdate.current = "searchPokemon";
       setPokemonFromClick(inputValue);
@@ -54,29 +54,40 @@ function Main(props) {
     }
 
     if (e.target.className === "typeList") {
+      console.log("CATCHORRELEASE11111111111111", catchOrRelease);
       whoToUpdate.current = "searchPokemon";
       setInputValue(e.target.innerText);
       setPokemonFromClick(e.target.innerText);
     }
 
-    if (e.target.className === "catchOrRealseButton") {
+    if (e.target.className === "catchOrReleaseButton") {
       ifCatchOrRealseClicked.current = true;
       if (e.target.innerText === "Catch") {
         e.target.innerText = "Release";
-        setCatchOrRealease("Release");
+        setCatchOrRelease("Release");
       } else {
         e.target.innerText = "Catch";
-        setCatchOrRealease("Catch");
+        setCatchOrRelease("Catch");
       }
       // setPokemonFromClick(e.target.innerText);
     }
     if (e.target.className === "pokemonCard-image") {
       setPokemonFromClick(e.target.alt);
       setInputValue(e.target.alt);
+      setPokemonDetails(e.target.alt);
+      whoToUpdate.current = "searchPokemon";
     }
   }
 
   useEffect(() => {
+    axios.get(`${BASE_URL}/collection`).then((response) => {
+      let tempArr = [...response.data];
+      tempArr.forEach((pokemon) => {
+        if (pokemon.name === inputValue) {
+          setCatchOrRelease("Release");
+        }
+      });
+    });
     if (ifCatchOrRealseClicked.current) {
       if (catchOrRelease === "Release") {
         axios
@@ -110,9 +121,9 @@ function Main(props) {
         }
       });
       if (bool) {
-        setCatchOrRealease("Release");
+        setCatchOrRelease("Release");
       } else {
-        setCatchOrRealease("Catch");
+        setCatchOrRelease("Catch");
       }
     });
   }, [pokemonFromClick]);
