@@ -133,7 +133,8 @@ function Main(props) {
       axios
         .get(`${BASE_URL}/type/${pokemonFromClick}`)
         .then((response) => {
-          let tempArr = [...response.data.pokemons];
+          console.log("response.data.pokemons", response.data);
+          let tempArr = [...response.data.pokemonArray];
           setTypeListValue(tempArr);
         })
         .catch((err) => {
@@ -158,12 +159,6 @@ function Main(props) {
         catchOrRelease={catchOrRelease}
         clickHandler={clickHandler}
       />
-      <Types
-        visibility={typesHidden}
-        typeListValue={typeListValue}
-        ifDefined={ifDefined.current}
-        clickHandler={clickHandler}
-      />
       <Collection
         collection={collection}
         clickHandler={clickHandler}
@@ -171,6 +166,12 @@ function Main(props) {
         indexCollection={indexCollection}
         reverseIndex={reverseIndex}
         forwordIndex={forwordIndex}
+      />
+      <Types
+        visibility={typesHidden}
+        typeListValue={typeListValue}
+        ifDefined={ifDefined.current}
+        clickHandler={clickHandler}
       />
     </div>
   );
