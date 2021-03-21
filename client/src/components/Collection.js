@@ -14,13 +14,9 @@ function Collection(props) {
       <img
         className="pokemonCard-image"
         onClick={props.clickHandler}
-        src={
-          collection[indexCollection]
-            ? collection[indexCollection].url.front
-            : ""
-        }
+        src={collection[indexCollection] ? collection[indexCollection].url : ""}
         onMouseOver={(e) =>
-          (e.currentTarget.src = collection[indexCollection].url.front
+          (e.currentTarget.src = collection[indexCollection].url
             ? collection[indexCollection].url.back
             : undefined)
         }
