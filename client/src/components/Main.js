@@ -134,7 +134,6 @@ function Main(props) {
         .get(`${BASE_URL}/type/${pokemonFromClick}`)
         .then((response) => {
           let tempArr = [...response.data.pokemons];
-          let namesOfTempArr = [];
           setTypeListValue(tempArr);
         })
         .catch((err) => {
