@@ -158,13 +158,13 @@ function Main(props) {
         catchOrRelease={catchOrRelease}
         clickHandler={clickHandler}
       />
-      <Collection collection={collection} clickHandler={clickHandler} />
       <Types
         visibility={typesHidden}
         typeListValue={typeListValue}
         ifDefined={ifDefined.current}
         clickHandler={clickHandler}
       />
+      <Collection collection={collection} clickHandler={clickHandler} />
     </div>
   );
 }
