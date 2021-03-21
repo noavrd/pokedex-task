@@ -13,7 +13,11 @@ function Types(props) {
             <li onClick={props.clickHandler} key={index} className="typeList">
               {console.log(objType)}
               {objType.name}
-              <img className="type-img" src={objType.url} alt="pokemon"></img>
+              <img
+                className="type-img"
+                src={objType.urlImg}
+                alt="pokemon"
+              ></img>
             </li>
           ))
         ) : (
