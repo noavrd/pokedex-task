@@ -14,14 +14,6 @@ function Types(props) {
             <li onClick={props.clickHandler} key={index} className="typeList">
               {/* {objType.name} */}
               <TypeInTypes pokemonName={objType.name} />
-
-              {/* {objType.name} */}
-              <TypeInTypes pokemonName={objType.name} />
-
-
-              {/* {objType.name} */}
-              <TypeInTypes pokemonName={objType.name} />
-
             </li>
           ))
         ) : (

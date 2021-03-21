@@ -9,7 +9,7 @@ collection.post("/catch", (req, res) => {
   const indexOfPokemon = collectionArr.findIndex(
     (obj) => obj.name === newPokemon.name
   );
-  // console.log(indexOfPokemon);
+  console.log(indexOfPokemon);
   if (indexOfPokemon === -1) {
     collectionArr.push(newPokemon);
     res.send(collectionArr);
